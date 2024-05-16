@@ -1,34 +1,42 @@
+import styles from './index.module.css'
+import sqlLogo from './assets/sql.png'
+import sql2 from './assets/sql-server.png'
+import spl3 from './assets/big-data.png'
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const[querydesc,setQueryDescription] = useState("")
+
+  const onSubmit = (e)=>{
+    e.preventDefault();
+    console.log("form submitted: ",querydesc);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <main className={styles.main}>
+
+      <div className={styles.logos}>
+      <img src={sqlLogo} alt="logo of sql" className={styles.icon}/>
+      <img src={sql2} alt="logo of sql" className={styles.icon}/>
+      <img src={spl3} alt="logo of sql" className={styles.icon}/>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+      <h3>Generate SQL with AI</h3>
+
+      <form onSubmit={onSubmit}>
+
+        <input 
+          type="text" 
+          name='query-description'
+          placeholder='Describe your query'
+          onChange={(e)=> setQueryDescription(e.target.value)}
+
+        />
+        <input type="submit" value="Generate query" />
+
+      </form>
+      
+    </main>
   )
 }
 
