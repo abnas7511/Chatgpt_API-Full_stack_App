@@ -1,18 +1,22 @@
-import { Configuration,OpenAIApi} from "openai"
-import dotenv, { configDotenv } from "dotenv"
+import OpenAI from "openai";
+import dotenv from "dotenv";
+
+// Load environment variables from .env file
 dotenv.config();
 
-const openaiApiKey = process.env.OPENAI_API_KEY
+// Retrieve the OpenAI API key from environment variables
+const openaiApiKey = process.env.OPENAI_API_KEY;
 
-if(!openaiApiKey){
-    console.error("OPENAI_API_KEY is not set")
-    process.exit(1)
+// Check if the API key is set
+if (!openaiApiKey) {
+  console.error('Error: OPENAI_API_KEY is not set in the environment variables.');
+  process.exit(1);
 }
 
-const configuration = new Configuration({
-    apiKey: openaiApiKey
-})
+// Create an instance of the OpenAI API client
+const openai = new OpenAI({
+  apiKey: openaiApiKey,
+});
 
-const openai = new OpenAIApi(configuration)
-
-export default openai
+// Export the configured OpenAI API client for use in other modules
+export default openai;

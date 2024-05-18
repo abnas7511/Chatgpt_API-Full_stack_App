@@ -5,11 +5,26 @@ import spl3 from './assets/big-data.png'
 import { useState } from 'react'
 
 function App() {
-  const[querydesc,setQueryDescription] = useState("")
+  const[queryDesc,setQueryDescription] = useState("")
+  const[sqlQuery,setSqlQuery] = useState("")
 
-  const onSubmit = (e)=>{
+  const onSubmit = async (e)=>{
     e.preventDefault();
-    console.log("form submitted: ",querydesc);
+    const generatedQuery = await generateQuery()
+
+    setSqlQuery(generatedQuery)
+  };
+
+  const generateQuery = async () => {
+    const response = await fetch("http://localhost:3005/generate",{
+      method : "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({queryDesc:queryDesc})
+    });
+    const data = await response.json();
+    return data.response.trim()
   }
 
   return (
@@ -33,6 +48,7 @@ function App() {
 
         />
         <input type="submit" value="Generate query" />
+        <pre>{sqlQuery}</pre>
 
       </form>
       
