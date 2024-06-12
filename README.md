@@ -1,4 +1,4 @@
-# SQL Query Generator
+# Querygenx - SQL Query Generator
 
 ## Overview
 
